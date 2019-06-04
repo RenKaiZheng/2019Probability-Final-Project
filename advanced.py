@@ -36,7 +36,7 @@ def reading_data(path1, path2, path3, path4):
 
 def pick(training_data, testing_data, training_labels, testing_labels):
 	#TODO
-	return [[] for i in range(testing_data.shape[1])]	#Please return a array with shape = (k, testing_data.shape[1])
+	return [[] for i in range(testing_data.shape[1])]	#Please return a array with shape = (testing_data.shape[1], k)
 
 def evaluate(picked_people, training_data, testing_data, training_labels, testing_labels):
 	cnt_correct_pick = 0.0
