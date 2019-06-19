@@ -3,7 +3,10 @@ import sys
 import os
 from time import time
 
-def reading_data(path1, path2, path3, path4):
+def reading_data(path1='../prob_data/advanced-train.txt', 
+				path2='../prob_data/advanced-test.txt', 
+				path3='../prob_data/advanced-train-category.txt', 
+				path4='../prob_data/advanced-test-category.txt'):
 	training_data = []
 	with open(path1, 'r') as fp:
 		for line in open(path1, 'r'):
