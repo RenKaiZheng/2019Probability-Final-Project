@@ -48,6 +48,9 @@ def evaluate(picked_people, training_data, testing_data):
 
 if __name__ == '__main__':
 	training_data, testing_data = reading_data(sys.argv[1], sys.argv[2])
+	if sys.argv[len(sys.argv)-1] == '-e':
+		EXPERIMENT = True
+
 	if EXPERIMENT:
 		var = range(1, 500)
 	else:

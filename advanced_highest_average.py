@@ -50,9 +50,9 @@ def pick(training_data, testing_data, training_labels, testing_labels, K=10):
 		elif label == '003':
 			sums3 += training_data[:, i]
 
-	best_winners1 = np.argsort(sums1)[::-1][:10:]
-	best_winners2 = np.argsort(sums2)[::-1][:10:]
-	best_winners3 = np.argsort(sums3)[::-1][:10:]
+	best_winners1 = np.argsort(sums1)[::-1][:K:]
+	best_winners2 = np.argsort(sums2)[::-1][:K:]
+	best_winners3 = np.argsort(sums3)[::-1][:K:]
 
 	out_array = []
 	for label in testing_labels:
@@ -81,6 +81,9 @@ def evaluate(picked_people, training_data, testing_data, training_labels, testin
 
 if __name__ == '__main__':
 	training_data, testing_data, training_labels, testing_labels = reading_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+	if sys.argv[len(sys.argv)-1] == '-e':
+		EXPERIMENT = True
+		
 	if EXPERIMENT:
 		var = range(1, 500)
 	else:

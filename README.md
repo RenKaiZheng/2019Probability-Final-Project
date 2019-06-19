@@ -26,3 +26,7 @@
 # run.sh
 
 > Unix-based system only! 
+
+# run_experiment.sh
+
+> Iterate k from 1 to 500 and plot the hit-rate curve.

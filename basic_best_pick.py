@@ -26,10 +26,10 @@ def reading_data(path1, path2):
 
 def pick(training_data, testing_data, K=10):
 	bid_winners = np.argmax(testing_data, axis = 0)
-	win_bid_cnt = np.zeros((testing_data.shape[1], ), dtype=int)
+	win_bid_cnt = np.zeros((testing_data.shape[0], ), dtype=int)
 	for winner in bid_winners:
 		win_bid_cnt[winner] += 1
-	best_winners = np.argsort(win_bid_cnt)[::-1][:10:]
+	best_winners = np.argsort(win_bid_cnt)[::-1][:K:]
 	return [best_winners for i in range(testing_data.shape[1])]	#Please return a array with shape = (testing_data.shape[1], k)
 
 def evaluate(picked_people, training_data, testing_data):
@@ -48,6 +48,9 @@ def evaluate(picked_people, training_data, testing_data):
 
 if __name__ == '__main__':
 	training_data, testing_data = reading_data(sys.argv[1], sys.argv[2])
+	if sys.argv[len(sys.argv)-1] == '-e':
+		EXPERIMENT = True
+		
 	if EXPERIMENT:
 		var = range(1, 500)
 	else:

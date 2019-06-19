@@ -26,7 +26,7 @@ def reading_data(path1, path2):
 
 def pick(training_data, testing_data, K=10):
 	sums = np.sum(training_data, axis = 1)
-	best_winners = np.argsort(sums)[::-1][:10:]
+	best_winners = np.argsort(sums)[::-1][:K:]
 	return [best_winners for i in range(testing_data.shape[1])]	#Please return a array with shape = (testing_data.shape[1], k)
 
 def evaluate(picked_people, training_data, testing_data):
@@ -45,6 +45,9 @@ def evaluate(picked_people, training_data, testing_data):
 
 if __name__ == '__main__':
 	training_data, testing_data = reading_data(sys.argv[1], sys.argv[2])
+	if sys.argv[len(sys.argv)-1] == '-e':
+		EXPERIMENT = True
+
 	if EXPERIMENT:
 		var = range(1, 500)
 	else:
