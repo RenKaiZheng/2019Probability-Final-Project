@@ -3,7 +3,7 @@ import sys
 import os
 from time import time
 
-def reading_data(path1, path2):
+def reading_data(path1='../prob_data/basic-train.txt', path2='../prob_data/basic-test.txt'):
 	training_data = []
 	with open(path1, 'r') as fp:
 		for line in open(path1, 'r'):
@@ -24,18 +24,21 @@ def pick(training_data, testing_data):
 	#TODO
 	return [[] for i in range(testing_data.shape[1])]	#Please return a array with shape = (testing_data.shape[1], k)
 
-def evaluate(picked_people, training_data, testing_data):
+def evaluate(picked_people, training_data, testing_data, bound=1):
 	cnt_correct_pick = 0.0
 	for i in range(testing_data.shape[1]):
-		max_bid = 0
-		for j in range(testing_data.shape[0]):
-			if testing_data[j][i] > testing_data[max_bid][i]:
-				max_bid = j
-		if max_bid in picked_people[i]:
-			cnt_correct_pick += 1
+		current_round = testing_data[:, i]
+		max_bid_list = np.argsort(current_round)[::-1][:bound]
+		
+		for max_bid in max_bid_list:
+			if max_bid in picked_people[i]:
+				cnt_correct_pick += 1
+				break
 
-	print("Evaluation :", cnt_correct_pick/testing_data.shape[1])
-	return
+	result = cnt_correct_pick/testing_data.shape[1]
+	print("Evaluation :", result)
+	return result
+
 
 if __name__ == '__main__':
 	training_data, testing_data = reading_data(sys.argv[1], sys.argv[2])

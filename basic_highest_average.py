@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 EXPERIMENT = False
 
 
-def reading_data(path1, path2):
+def reading_data(path1='../prob_data/basic-train.txt', path2='../prob_data/basic-test.txt'):
 	training_data = []
 	with open(path1, 'r') as fp:
 		for line in open(path1, 'r'):
