@@ -30,3 +30,5 @@
 # run_experiment.sh
 
 > Iterate k from 1 to 500 and plot the hit-rate curve.
+>
+> **The code is not optimized and may have bad performance.**
