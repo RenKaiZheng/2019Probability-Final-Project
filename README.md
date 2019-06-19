@@ -22,3 +22,7 @@
 
 # Warning
 > basic-test.txt、advanced-test.txt和advanced-test-category.txt只有999個paintings。
+
+# run.sh
+
+> Unix-based system only! 

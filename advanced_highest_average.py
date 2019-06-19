@@ -2,6 +2,10 @@ import numpy as np
 import sys
 import os
 from time import time
+import matplotlib.pyplot as plt
+
+EXPERIMENT = False
+
 
 def reading_data(path1, path2, path3, path4):
 	training_data = []
@@ -34,7 +38,7 @@ def reading_data(path1, path2, path3, path4):
 
 	return np.array(training_data), np.array(testing_data), np.array(training_labels), np.array(testing_labels)
 
-def pick(training_data, testing_data, training_labels, testing_labels):
+def pick(training_data, testing_data, training_labels, testing_labels, K=10):
 	sums1 = np.zeros((training_data.shape[0], ), dtype=np.float64)
 	sums2 = np.zeros((training_data.shape[0], ), dtype=np.float64)
 	sums3 = np.zeros((training_data.shape[0], ), dtype=np.float64)
@@ -71,10 +75,25 @@ def evaluate(picked_people, training_data, testing_data, training_labels, testin
 		if max_bid in picked_people[i]:
 			cnt_correct_pick += 1
 
-	print("Evaluation :", cnt_correct_pick/testing_data.shape[1])
-	return
+	result = cnt_correct_pick/testing_data.shape[1]
+	print("Evaluation :", result)
+	return result
 
 if __name__ == '__main__':
 	training_data, testing_data, training_labels, testing_labels = reading_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-	picked_people = pick(training_data, testing_data, training_labels, testing_labels)
-	evaluate(picked_people, training_data, testing_data, training_labels, testing_labels)
+	if EXPERIMENT:
+		var = range(1, 500)
+	else:
+		var = [10]
+
+	results = []
+	for k in var:
+		print(f'[K = {k}]', end='')
+		picked_people = pick(training_data, testing_data, training_labels, testing_labels, k)
+		results.append(evaluate(picked_people, training_data, testing_data, training_labels, testing_labels))
+
+	if EXPERIMENT:
+		plt.plot(range(1, 500), results)
+		plt.xlabel('K')
+		plt.ylabel('hit rate')
+		plt.show()

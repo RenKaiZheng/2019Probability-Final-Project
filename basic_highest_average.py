@@ -2,6 +2,10 @@ import numpy as np
 import sys
 import os
 from time import time
+import matplotlib.pyplot as plt
+
+EXPERIMENT = False
+
 
 def reading_data(path1, path2):
 	training_data = []
@@ -20,7 +24,7 @@ def reading_data(path1, path2):
 
 	return np.array(training_data), np.array(testing_data)
 
-def pick(training_data, testing_data):
+def pick(training_data, testing_data, K=10):
 	sums = np.sum(training_data, axis = 1)
 	best_winners = np.argsort(sums)[::-1][:10:]
 	return [best_winners for i in range(testing_data.shape[1])]	#Please return a array with shape = (testing_data.shape[1], k)
@@ -35,10 +39,25 @@ def evaluate(picked_people, training_data, testing_data):
 		if max_bid in picked_people[i]:
 			cnt_correct_pick += 1
 
-	print("Evaluation :", cnt_correct_pick/testing_data.shape[1])
-	return
+	result = cnt_correct_pick/testing_data.shape[1]
+	print("Evaluation :", result)
+	return result
 
 if __name__ == '__main__':
 	training_data, testing_data = reading_data(sys.argv[1], sys.argv[2])
-	picked_people = pick(training_data, testing_data)
-	evaluate(picked_people, training_data, testing_data)
+	if EXPERIMENT:
+		var = range(1, 500)
+	else:
+		var = [10]
+
+	results = []
+	for k in var:
+		print(f'[K = {k}]', end='')
+		picked_people = pick(training_data, testing_data, k)
+		results.append(evaluate(picked_people, training_data, testing_data))
+
+	if EXPERIMENT:
+		plt.plot(range(1, 500), results)
+		plt.xlabel('K')
+		plt.ylabel('hit rate')
+		plt.show()
