@@ -28,9 +28,27 @@ python advanced.py <advanced-train.txt的路徑> <advanced-test.txt的路徑> <t
 # run.sh
 
 > Unix-based system only! 
+>
+> K = 10
 
-# run_experiment.sh
+# Experiments
+
+**All the data need to be put under ../prob_data/**
+
+## K
+
+```
+./run_experiment.sh
+```
 
 > Iterate k from 1 to 500 and plot the hit-rate curve.
 >
 > **The code is not optimized and may have bad performance.**
+
+## Bound of Evaluation
+
+```
+python3 experiment_bound.py
+```
+
+> Use basic_highest_average.py algorithm as default.
